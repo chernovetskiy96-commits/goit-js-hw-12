@@ -1,0 +1,5 @@
+
+
+function getImagesByQuery(query, page) {
+    
+}
