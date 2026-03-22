@@ -52,7 +52,16 @@ async function onSearch(event) {
 
     createGallery(data.hits);
 
-    if (data.totalHits > 15) {
+    if (data.totalHits <= 15) {
+      hideLoadMoreButton();
+
+      iziToast.show({
+        message: "We're sorry, but you've reached the end of search results.",
+        messageColor: '#fff',
+        backgroundColor: '#ef4040',
+        position: 'topRight',
+      });
+    } else {
       showLoadMoreButton();
     }
 
@@ -68,7 +77,6 @@ async function onSearch(event) {
     hideLoader();
   }
 }
-
 async function onLoadMore() {
   showLoader();
   hideLoadMoreButton();
