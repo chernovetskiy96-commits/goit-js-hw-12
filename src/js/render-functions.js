@@ -1,26 +1,28 @@
-import SimpleLightbox from "simplelightbox";
-import SimpleLightbox from "simplelightbox/dist/simple-lightbox.esm"
-
+import SimpleLightbox from 'simplelightbox';
+import 'simplelightbox/dist/simple-lightbox.min.css';
 
 const gallery = document.querySelector('.gallery');
+const loader = document.querySelector('.loader');
+const loadButton = document.querySelector('.load-more-button');
 
-
-const litebox = new SimpleLightbox('.gallery a', {
-    captionsData: 'alt',
-    captionDelay: 250
+const lightbox = new SimpleLightbox('.gallery a', {
+  captionsData: 'alt',
+  captionDelay: 250,
 });
 
 export function createGallery(images) {
-    const markup = images
-        .map({
-             webformatURL,
+  const markup = images
+    .map(
+      ({
+        webformatURL,
         largeImageURL,
         tags,
         likes,
         views,
         comments,
         downloads,
-        }) => `<li class="gallery-item">
+      }) => `
+        <li class="gallery-item">
           <a class="gallery-link" href="${largeImageURL}">
             <img
               class="gallery-image"
@@ -34,5 +36,31 @@ export function createGallery(images) {
             <p class="info-item"><b>Comments</b> ${comments}</p>
             <p class="info-item"><b>Downloads</b> ${downloads}</p>
           </div>
-        </li>`
+        </li>
+      `
+    )
+    .join('');
+
+  gallery.insertAdjacentHTML('beforeend', markup);
+  lightbox.refresh();
+}
+
+export function clearGallery() {
+  gallery.innerHTML = '';
+}
+
+export function showLoader() {
+  loader.classList.add('is-visible');
+}
+
+export function hideLoader() {
+  loader.classList.remove('is-visible');
+}
+
+export function showLoadMoreButton() {
+  loadButton.classList.remove('is-hidden');
+}
+
+export function hideLoadMoreButton() {
+  loadButton.classList.add('is-hidden');
 }
